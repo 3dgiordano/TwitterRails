@@ -1,0 +1,26 @@
+<%= form_for @trend, :html => { :class => 'form-horizontal' } do |f| %>
+  <div class="control-group">
+    <%= f.label :name, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :name, :class => 'text_field' %>
+    </div>
+  </div>
+  <div class="control-group">
+    <%= f.label :query, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :query, :class => 'text_field' %>
+    </div>
+  </div>
+  <div class="control-group">
+    <%= f.label :as_of, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.datetime_select :as_of, :class => 'datetime_select' %>
+    </div>
+  </div>
+
+  <div class="form-actions">
+    <%= f.submit nil, :class => 'btn btn-primary' %>
+    <%= link_to t('.cancel', :default => t("helpers.links.cancel")),
+                trends_path, :class => 'btn' %>
+  </div>
+<% end %>

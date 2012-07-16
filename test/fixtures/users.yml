@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  screen_name: MyString
+  name: MyString
+  followers_count: 1
+
+two:
+  screen_name: MyString
+  name: MyString
+  followers_count: 1
