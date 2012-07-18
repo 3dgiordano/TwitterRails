@@ -1,13 +1,26 @@
 class TrendsController < ApplicationController
+
+  def refresh
+    Trend.refresh_trends_from_api
+    redirect_to :action => "index"
+  end 
+
+  def refresh_twits
+    Trend.find(params[:id]).refresh_twits_from_api
+    redirect_to :action => "show", :id => params[:id]
+  end
+
   # GET /trends
   # GET /trends.json
   def index
-    @trends = Trend.all
+    
+    @trends = Trend.order("as_of DESC").limit(10)
 
     respond_to do |format|
       format.html # index.html.erb
       format.json { render json: @trends }
     end
+
   end
 
   # GET /trends/1

@@ -15,11 +15,13 @@
   <tbody>
     <% @twits.each do |twit| %>
       <tr>
-        <td><%= link_to twit.id, twit_path(twit) %></td>
         <td><%= twit.text %></td>
         <td><%= twit.user_id %></td>
         <td><%=l twit.created_at %></td>
         <td>
+          <%= link_to t('.show', :default => t("helpers.links.show")),
+                      twit_path(twit), :class => 'btn btn-mini' %>
+          <% if false %>
           <%= link_to t('.edit', :default => t("helpers.links.edit")),
                       edit_twit_path(twit), :class => 'btn btn-mini' %>
           <%= link_to t('.destroy', :default => t("helpers.links.destroy")),
@@ -27,6 +29,7 @@
                       :method => :delete,
                       :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')),
                       :class => 'btn btn-mini btn-danger' %>
+          <% end %>
         </td>
       </tr>
     <% end %>

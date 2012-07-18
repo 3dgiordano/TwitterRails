@@ -1,4 +1,5 @@
 class TwitsController < ApplicationController
+
   # GET /twits
   # GET /twits.json
   def index

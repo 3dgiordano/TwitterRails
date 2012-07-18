@@ -1,7 +1,10 @@
 TwitterRails::Application.routes.draw do
   resources :users
-  resources :trends
-  resources :twits
+  resources :trends do
+      get 'refresh', :on => :collection
+      get 'refresh_twits', :on => :collection
+  end
+  resources :twits 
 
   # The priority is based upon order of creation:
   # first created -> highest priority.
