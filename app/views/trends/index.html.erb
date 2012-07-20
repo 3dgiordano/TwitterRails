@@ -39,6 +39,6 @@
             new_trend_path,
             :class => 'btn btn-primary' %>
 <% end %>
-<%= link_to t('.refresh', :default => t("helpers.links.refresh")), {:controller => "trends", :action => "refresh"}, :class => 'btn btn-primary' %>
+<%= link_to t('.refresh', :default => t("helpers.links.refresh")), refresh_trends_path, :class => 'btn btn-primary' %>
 
 

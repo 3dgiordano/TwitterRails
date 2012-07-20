@@ -50,7 +50,7 @@
 <div class="form-actions">
   <%= link_to t('.back', :default => t("helpers.links.back")),
               trends_path, :class => 'btn'  %>
-<%= link_to t('.refresh', :default => t("helpers.links.refresh")), {:controller => "trends", :action => "refresh_twits", :id => @trend}, :class => 'btn btn-primary' %>
+<%= link_to t('.refresh', :default => t("helpers.links.refresh")), refresh_twits_trends_path(:id => @trend), :class => 'btn btn-primary' %>
 <% if false %>
   <%= link_to t('.edit', :default => t("helpers.links.edit")),
               edit_trend_path(@trend), :class => 'btn' %>
