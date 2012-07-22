@@ -11,4 +11,9 @@ class User < ActiveRecord::Base
     self.name = user_response["name"]
     self.followers_count = user_response["followers_count"]
   end
+
+  def profile_image(size = "normal")
+    TwitterAPI.get_user_profile_image(self.screen_name, size)
+  end
+
 end

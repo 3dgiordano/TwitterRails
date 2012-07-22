@@ -13,35 +13,24 @@
 <% @twits = @trend.twit.order("created_at DESC").limit(10) %>
 
 <table class="table table-striped">
-  <thead>
-    <tr>
-      <th><%= Twit.human_attribute_name("user_id") %></th>
-      <th><%= Twit.human_attribute_name("text") %></th>
-      <% if false %>
-         <th><%=t '.actions', :default => t("helpers.actions") %></th>
-       <% end %>
-    </tr>
-  </thead>
   <tbody>
     <% @twits.each do |twit| %>
       <tr>
-        <td><%= twit.user.screen_name %></td>
-        <td><%= twit.text %></td>
-        <% if false %>
         <td>
-          <%= link_to t('.show', :default => t("helpers.links.show")),
-                      twit_path(twit), :class => 'btn btn-mini' %>
-          
-          <%= link_to t('.edit', :default => t("helpers.links.edit")),
-                      edit_twit_path(twit), :class => 'btn btn-mini' %>
-          <%= link_to t('.destroy', :default => t("helpers.links.destroy")),
-                      twit_path(twit),
-                      :method => :delete,
-                      :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')),
-                      :class => 'btn btn-mini btn-danger' %>
-         
+          <div style="display:block; position:relative; margin-left:56px; min-height:48px">
+            <a href="http://twitter.com/<%= twit.user.screen_name %>" target="_blank">
+              <%= image_tag twit.user.profile_image.html_safe, :style => "-webkit-border-radius: 5px;-moz-border-radius: 5px;border-radius: 5px;position:absolute;top:0px;left:-55px;" %>
+              <strong><%= twit.user.name %></strong> <span>@<%= twit.user.screen_name %></span>
+            </a>
+            <p><%= twit.text_html.html_safe %></p>
+          </div>
+          <%
+            links = twit.get_links
+            links.each do |l|
+              %><div style="display:block; position:relative; margin-left:102px;"> <%= TwitterCrawler.get_crawled_body("#{l}","html").html_safe %></div><% 
+            end
+          %>
         </td>
-        <% end %>
       </tr>
     <% end %>
   </tbody>
@@ -50,7 +39,7 @@
 <div class="form-actions">
   <%= link_to t('.back', :default => t("helpers.links.back")),
               trends_path, :class => 'btn'  %>
-<%= link_to t('.refresh', :default => t("helpers.links.refresh")), refresh_twits_trends_path(:id => @trend), :class => 'btn btn-primary' %>
+<%= link_to t('.refresh', :default => t("helpers.links.refresh")), refresh_twits_trends_path(id:@trend), :class => 'btn btn-primary' %>
 <% if false %>
   <%= link_to t('.edit', :default => t("helpers.links.edit")),
               edit_trend_path(@trend), :class => 'btn' %>

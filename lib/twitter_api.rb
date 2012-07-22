@@ -1,9 +1,10 @@
 require "net/http"
 require "json"
+require "twitter_crawler"
 
 module TwitterAPI
 
-  TWITTERAPI_BASE_URL = "api.twitter.com"
+  TWITTERAPI_BASE_URL = "http://api.twitter.com"
 
   def self.get_trends(woeid=1)
     raise ArgumentError, 'Argument is not numeric' unless woeid.respond_to?("to_int")
@@ -27,6 +28,10 @@ module TwitterAPI
   def self.get_user_information_by_id(user_id)
     raise ArgumentError, 'Argument is not numeric' unless user_id.respond_to?("to_int")
     get_http("/1/users/show", "id=#{user_id}")
+  end
+
+  def self.get_user_profile_image(screen_name, size = "normal")
+    "#{TWITTERAPI_BASE_URL}/1/users/profile_image?screen_name=#{screen_name}&size=#{size}"
   end
 
   private

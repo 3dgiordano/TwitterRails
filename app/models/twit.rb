@@ -23,4 +23,8 @@ class Twit < ActiveRecord::Base
     Utils.get_links(self.text)
   end
 
+  def text_html
+    Utils.get_linkyfy(self.text)
+  end
+
 end

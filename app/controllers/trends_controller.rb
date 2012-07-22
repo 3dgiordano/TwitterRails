@@ -7,7 +7,7 @@ class TrendsController < ApplicationController
 
   def refresh_twits
     Trend.find(params[:id]).refresh_twits_from_api
-    redirect_to :action => "show", :id => params[:id]
+    redirect_to :action => "show", :id => params[:id]  
   end
 
   # GET /trends
