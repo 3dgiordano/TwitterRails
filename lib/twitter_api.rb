@@ -4,7 +4,7 @@ require "twitter_crawler"
 
 module TwitterAPI
 
-  TWITTERAPI_BASE_URL = "http://api.twitter.com"
+  TWITTERAPI_BASE_URL = "api.twitter.com"
 
   def self.get_trends(woeid=1)
     raise ArgumentError, 'Argument is not numeric' unless woeid.respond_to?("to_int")
@@ -31,7 +31,7 @@ module TwitterAPI
   end
 
   def self.get_user_profile_image(screen_name, size = "normal")
-    "#{TWITTERAPI_BASE_URL}/1/users/profile_image?screen_name=#{screen_name}&size=#{size}"
+    "http://#{TWITTERAPI_BASE_URL}/1/users/profile_image?screen_name=#{screen_name}&size=#{size}"
   end
 
   private
@@ -41,7 +41,8 @@ module TwitterAPI
  
     result = "" 
     begin
-      response = Net::HTTP.get_response(TWITTERAPI_BASE_URL, "#{entity}.json?#{query}")
+      query.empty? ? entity = "#{entity}.json" : entity = "#{entity}.json?#{query}"
+      response = Net::HTTP.get_response(TWITTERAPI_BASE_URL, entity)
       case response
       when Net::HTTPSuccess then
         result = JSON.parse(response.body) 

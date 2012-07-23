@@ -10,7 +10,17 @@
 
 <h3><%=t '.twits_title', :default => Twit.model_name.human.pluralize %></h2>
 
-<% @twits = @trend.twit.order("created_at DESC").limit(10) %>
+<% 
+     if (@trend.twit.count() == 0)
+       begin
+         @trend.refresh_twits_from_api
+       rescue Exception => ex
+         puts "Unknow error:#{ex.message}"
+       end
+     end
+     @twits = @trend.twit.order("created_at DESC").limit(10)
+
+%>
 
 <table class="table table-striped">
   <tbody>
@@ -39,7 +49,7 @@
 <div class="form-actions">
   <%= link_to t('.back', :default => t("helpers.links.back")),
               trends_path, :class => 'btn'  %>
-<%= link_to t('.refresh', :default => t("helpers.links.refresh")), refresh_twits_trends_path(id:@trend), :class => 'btn btn-primary' %>
+<%= link_to t('.refresh', :default => t("helpers.links.refresh")), refresh_twits_trends_path(id:@trend), :remote => true, :class => 'btn btn-primary' %>
 <% if false %>
   <%= link_to t('.edit', :default => t("helpers.links.edit")),
               edit_trend_path(@trend), :class => 'btn' %>

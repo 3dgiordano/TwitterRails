@@ -9,8 +9,14 @@ class Trend < ActiveRecord::Base
 
   def self.refresh_trends_from_api(woeid=1)
     trends_api = TwitterAPI.get_trends(woeid)
+    puts trends_api
     return if trends_api.include?("errors")
-    trends_api.each{|e| e["trends"].each{|t| Trend.create(:name => t["name"], :query => t["query"], :as_of  => e["as_of"]) }}
+    #trends_api.each{|e| e["trends"].each{|t| Trend.create(:name => t["name"], :query => t["query"], :as_of  => e["as_of"]) }}
+    trends_api.each{|e| e["trends"].each{|t| 
+                    trend = Trend.find_or_create_by_name(:name => t["name"], :query => t["query"], :as_of  => e["as_of"]) 
+                     trend.update_attributes({:as_of =>  e["as_of"]}) if (!trend.new_record?)   
+                      
+                    }}
   end
 
   def refresh_twits_from_api

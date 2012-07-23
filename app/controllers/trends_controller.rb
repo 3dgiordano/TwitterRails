@@ -1,6 +1,7 @@
 class TrendsController < ApplicationController
 
   def refresh
+    puts "refresh controller!"
     Trend.refresh_trends_from_api
     redirect_to :action => "index"
   end 
