@@ -48,14 +48,26 @@ module TwitterCrawler
   end
 
   def self.get_http_response(url)
-    
-    found = false 
-    until found
-      response = Net::HTTP.get_response(URI.parse(URI.encode(url.strip))) 
-      response.header['location'] ? url = response.header['location']: 
-      found = true 
-    end 
-
+    puts "url:",url
+    begin
+      found = false 
+      until found
+        response = Net::HTTP.get_response(URI.parse(URI.encode(url.strip))) 
+        puts response.header['location'] if response.header['location']
+        response.header['location'] ? newurl = URI.parse(URI.encode(response.header['location'])): found = true 
+        if url != newurl
+          if newurl.relative?
+            puts "url is relative!!"
+            newurl = URI.join(url, newurl.to_s)
+            puts "fixed url relative:#{newurl}"
+          end
+          url = newurl.to_s
+        end 
+      end 
+    rescue Exception => ex
+      result = "Unknow error:#{ex.message}"
+    end
+    puts "final url:", url
     {"url" => url, "response" => response}
   end
 

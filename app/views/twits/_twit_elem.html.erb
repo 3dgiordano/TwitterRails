@@ -1,0 +1,17 @@
+      <tr>
+        <td>
+          <div style="display:block; position:relative; margin-left:56px; min-height:48px">
+            <a href="http://twitter.com/<%= twit_elem.user.screen_name %>" target="_blank">
+              <%= image_tag twit_elem.user.profile_image.html_safe, :style => "-webkit-border-radius: 5px;-moz-border-radius: 5px;border-radius: 5px;position:absolute;top:0px;left:-55px;" %>
+              <strong><%= twit_elem.user.name %></strong> <span>@<%= twit_elem.user.screen_name %></span>
+            </a>
+            <p><%= twit_elem.text_html.html_safe %></p>
+          </div>
+          <%
+            links = twit_elem.get_links
+            links.each do |l|
+              %><div style="display:block; position:relative; margin-left:102px;"> <%= TwitterCrawler.get_crawled_body("#{l}","html").html_safe %></div><% 
+            end
+          %>
+        </td>
+      </tr>

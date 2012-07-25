@@ -22,29 +22,9 @@
 
 %>
 
-<table class="table table-striped">
-  <tbody>
-    <% @twits.each do |twit| %>
-      <tr>
-        <td>
-          <div style="display:block; position:relative; margin-left:56px; min-height:48px">
-            <a href="http://twitter.com/<%= twit.user.screen_name %>" target="_blank">
-              <%= image_tag twit.user.profile_image.html_safe, :style => "-webkit-border-radius: 5px;-moz-border-radius: 5px;border-radius: 5px;position:absolute;top:0px;left:-55px;" %>
-              <strong><%= twit.user.name %></strong> <span>@<%= twit.user.screen_name %></span>
-            </a>
-            <p><%= twit.text_html.html_safe %></p>
-          </div>
-          <%
-            links = twit.get_links
-            links.each do |l|
-              %><div style="display:block; position:relative; margin-left:102px;"> <%= TwitterCrawler.get_crawled_body("#{l}","html").html_safe %></div><% 
-            end
-          %>
-        </td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
+<%= render :layout => '/twits/twit_list' do %>
+   
+<% end %>
 
 <div class="form-actions">
   <%= link_to t('.back', :default => t("helpers.links.back")),
