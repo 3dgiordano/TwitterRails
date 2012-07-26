@@ -19,7 +19,7 @@ module TwitterCrawler
          format=='text' ? self.get_image2text(image) : self.get_image2html(image)
     when "instagr.am"
          image = doc.xpath("//img[@class='photo']").first['src']
-         format=='text' ? self.get_image2text(image) : self.get_image2html(image)
+         format=='text' ? self.get_image2text(image): self.get_image2html(image)
     #when Twitvid Twitpic MobyPicture Lockerz <- others services to analize
     else
         format=='text' ? self.get_html2text(to_url) : self.get_html2html(to_url)
@@ -44,7 +44,7 @@ module TwitterCrawler
   end
 
   def self.get_html2html(url)
-    "<iframe src='#{URI.escape(url)}' width='90%' height='400' scrolling='auto' frameborder='1'></iframe>" 
+    "<iframe src='#' onload='this.src=\"#{URI.escape(url)}\"' width='90%' height='400' scrolling='auto' frameborder='1'></iframe>" 
   end
 
   def self.get_http_response(url)
